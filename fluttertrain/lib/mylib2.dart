@@ -1,0 +1,7 @@
+class MyLib{
+
+}
+
+class Test{
+
+}
