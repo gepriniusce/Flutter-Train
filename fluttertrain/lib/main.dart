@@ -20,7 +20,137 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {'/other': (BuildContext context) => OtherPage()},
+      initialRoute: '/other',
+      home: HomePage(),
+      //home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+  final _widgetOptions = [Text('首页'), Text('放映厅'), Text('直播'), Text('我的')];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: Icon(Icons.star),
+        title: Text('HomePage'),
+        centerTitle: true,
+        elevation: 0.0,
+        actions: <Widget>[
+          Icon(Icons.search),
+          Icon(Icons.more_vert),
+        ],
+      ),
+      body: Center(child: _widgetOptions.elementAt(_currentIndex)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, "/other");
+        },
+        tooltip: '路由跳转',
+        foregroundColor: Colors.blue,
+        backgroundColor: Colors.yellow,
+        elevation: 0.0,
+        child: Icon(Icons.arrow_forward_ios),
+        shape: RoundedRectangleBorder(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('首页'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.video_library),
+            title: Text('放映厅'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.videocam),
+            title: Text('直播'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            title: Text('我的'),
+          ),
+        ],
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+      ),
+      drawer: NewWidget(),
+    );
+  }
+}
+
+class NewWidget extends StatelessWidget {
+  const NewWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      elevation: 0.0,
+      child: ListView(
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://c-ssl.duitang.com/uploads/item/201908/01/20190801142642_kcpww.jpeg'),
+            ),
+            accountName: Text('Tongson'),
+            accountEmail: Text('286286298@qq.com'),
+            otherAccountsPictures: <Widget>[Icon(Icons.camera_alt)],
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              image: AssetImage('assets/images/timg.jpeg'),
+              fit: BoxFit.none,
+            )),
+          ),
+          ListTile(
+            leading: Icon(Icons.fastfood),
+            title: Text('flutter'),
+          ),
+          ListTile(
+            leading: Icon(Icons.face),
+            title: Text('kotlin'),
+          ),
+          ListTile(
+            leading: Icon(Icons.favorite),
+            title: Text('NDK'),
+          ),
+          AboutListTile(
+            icon: Icon(Icons.error),
+            child: Text('关于'),
+            applicationName: '个人学习',
+            applicationVersion: '1.0',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class OtherPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('OrtherPage'),
+      ),
     );
   }
 }

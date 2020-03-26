@@ -1,6 +1,7 @@
 import 'dart:math';
 
-//import 'package:dio/dio.dart';
+import 'package:dio/dio.dart';
+
 //导入文件
 //import 'mylib.dart';
 
@@ -30,12 +31,17 @@ void main() {
   doTool();
 
   doUtil();
+
+
+  getHttp();
 }
-//void getHttp() async {
-//  try {
-//    Response response = await Dio().get("http://www.google.com");
-//    print(response);
-//  } catch (e) {
-//    print(e);
-//  }
-//}
+
+
+void getHttp() async {
+  try {
+    Response response = await Dio().get("http://www.baidu.com");
+    print(response);
+  } catch (e) {
+    print(e);
+  }
+}
